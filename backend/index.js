@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser'
 import auth from './middleware/auth.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
-
+import cors from 'cors'
 
 dotenv.config()
 
@@ -14,6 +14,10 @@ const app = express()
 // Middleware to parse JSON bodies
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({
+  origin: process.env.CLIENT_URL,
+  credentials: true // Allow cookies to be sent
+}))
 
 app.use('/api/auth', authRouter)
 

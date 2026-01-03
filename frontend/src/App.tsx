@@ -1,24 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import AppProviders from './providers/AppProviders'
-import SignUpPage from './pages/SignUpPage'
+import { BrowserRouter, Routes, Route } from 'react-router'
+import { Toaster } from 'sonner'
 import SignInPage from './pages/SignInPage'
+import SignUpPage from './pages/SignUpPage'
 import ChatPage from './pages/ChatPage'
-
+import ProtectedRoute from './components/auth/ProtectedRoute'
 
 function App() {
   return (
-    <AppProviders>
+    <>
+      <Toaster richColors/>
       <BrowserRouter>
         <Routes>
-          {/* public routes */}
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/signin" element={<SignInPage />} />
+          {/** Public Routes */}
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
 
-          {/* protected routes */}
-          <Route path="/chat" element={<ChatPage />} />
+          {/** Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/chat" element={<ChatPage />} />
+          </Route>
         </Routes>
       </BrowserRouter>
-    </AppProviders>
+    </>
   )
 }
 

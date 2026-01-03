@@ -9,3 +9,7 @@ export async function getUserProfile(req, res) {
         return res.status(500).json({ success: false, message: 'Internal server error' })
     }
 } 
+
+export async function test(req, res) {
+    return res.sendStatus(204)
+}
