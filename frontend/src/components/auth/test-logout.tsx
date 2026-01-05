@@ -9,7 +9,7 @@ const TestLogout = () => {
 
     const handleLogout = async () => {
         await signOut();
-        navigate("/");
+        navigate("/sign-in");
     };
 
     return (

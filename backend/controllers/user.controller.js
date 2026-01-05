@@ -1,4 +1,5 @@
 import User from "../model/user.model.js";
+import Session from "../model/session.model.js";
 
 export async function getUserProfile(req, res) {
     try {
@@ -11,5 +12,7 @@ export async function getUserProfile(req, res) {
 } 
 
 export async function test(req, res) {
+    const indexes = await Session.collection.getIndexes()
+    console.log(indexes)
     return res.sendStatus(204)
 }

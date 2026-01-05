@@ -2,12 +2,13 @@ import { create } from 'zustand';
 import { toast } from 'sonner';
 import { authService } from '../services/authService';
 import type { AuthState } from '@/types/store';
-import axios from 'axios';
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   accessToken: null,
   user: null,
   loading: false,
+
+    setAccessToken: (accessToken: string) => set({ accessToken }),
 
   clearState: () => set({
     accessToken: null,
@@ -34,7 +35,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         try {
             set({loading: true})
             const {access_token} = await authService.signIn(email, password)
-            set({accessToken: access_token})
+            get().setAccessToken(access_token);
 
             get().fetchMe() // Lấy thông tin người dùng sau khi đăng nhập thành công
             console.log(`${get().user}`);
@@ -82,9 +83,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     refresh: async () => {
         try {
             set({ loading: true });
-            const { user, fetchMe } = get();
+            const { user, fetchMe, setAccessToken } = get();
             const accessToken = await authService.refresh();
-            set({ accessToken });
+            console.log(`Access token refreshed: ${accessToken}`);
+            setAccessToken(accessToken);
+
+            console.log(`${get().accessToken}`);
 
             if (!user) {
                 await fetchMe();

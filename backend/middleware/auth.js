@@ -28,6 +28,6 @@ export default async function auth(req, res, next) {
         next()
     } catch (error) {
         console.error('Auth middleware error:', error)
-        return res.status(500).json({ message: 'Internal server error' })
+        return res.status(403).json({ message: 'Not authorized' })
     }
 }

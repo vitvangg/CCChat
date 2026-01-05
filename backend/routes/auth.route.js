@@ -8,7 +8,7 @@ router.post('/signup', signUp)
 
 router.post('/signin', signIn)
 
-router.post('/signout', auth, signOut)
+router.post('/signout', signOut)
 
 router.post('/refresh', refreshToken)
 

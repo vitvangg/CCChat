@@ -5,7 +5,7 @@ import Session from "../model/session.model.js";
 import User from "../model/user.model.js";
 
 const ACCESS_TOKEN_TTL = '30s'
-const REFRESH_TOKEN_TTL = 2 * 60 * 1000 // 2 phút
+const REFRESH_TOKEN_TTL = 2 * 24 * 60 * 60 * 1000 // 2 ngày
 
 export async function signUp(req, res) {
     try {
@@ -39,7 +39,7 @@ export async function signUp(req, res) {
 
     } catch (error) {
         console.error(error)
-        return res.status(500).json({message: 'Internal server error'})
+        return res.status(500).json({message: 'Sign up server error'})
     }
 }
 
@@ -96,7 +96,7 @@ export async function signIn(req, res) {
         return res.status(200).json({message: "Sign in successful, hello " + user.displayName, access_token})
     } catch (error) {
         console.error(error)
-        return res.status(500).json({message: 'Internal server error'})
+        return res.status(500).json({message: 'Sign in server error'})
     }
 }
 
@@ -116,14 +116,14 @@ export async function signOut(req, res) {
         return res.status(200).json({message: 'Sign out successful'})
     } catch (error) {
         console.error(error)
-        return res.status(500).json({message: 'Internal server error'})
+        return res.status(500).json({message: 'Sign out server error'})
     }
 }
 
 export async function refreshToken(req, res) {
     try {
         // Lấy refresh_token từ cookie
-        const refresh_token = req.cookie?.refresh_token
+        const refresh_token = req.cookies?.refresh_token
         if (!refresh_token) {
             return res.status(401).json({message: "token not found"})
         }
@@ -156,6 +156,7 @@ export async function refreshToken(req, res) {
         // trả access_token
         return res.status(200).json({access_token})
     } catch (error) {
-        
+        console.error(error)
+        return res.status(500).json({message: 'Refresh token internal server error'})
     }
 }

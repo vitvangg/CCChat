@@ -29,7 +29,6 @@ export const authService = {
 
     refresh: async () => {
         const res = await api.post("/auth/refresh",
-            {},
             { withCredentials: true })
         return res.data.access_token
     }
