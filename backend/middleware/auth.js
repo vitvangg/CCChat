@@ -13,7 +13,6 @@ export default async function auth(req, res, next) {
         if (!access_token) {
             return res.status(401).json({message: "Token not right"})
         }
-        console.log(process.env.JWT_SECRET)
         const decoded = jwt.verify(access_token, process.env.JWT_SECRET)
 
         const user = await User.findById({

@@ -59,7 +59,7 @@ const conversationSchema = new mongoose.Schema({
     // danh sách thành viên n-n
     type: {
         type: String,
-        enum: ['direact', 'group'],
+        enum: ['direct', 'group'],
         required: true,
     },
     // Người tham gia
