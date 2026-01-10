@@ -21,7 +21,7 @@ export const sendDirectMessage = async (req, res) => {
             conversation = await Conversation.findById(conversationID);
         } else {
             conversation = await Conversation.create({
-                type: 'direact',
+                type: 'direct',
                 participants: [
                     { userID: senderID, joinedAt: new Date() },
                     { userID: receiverID, joinedAt: new Date() }
