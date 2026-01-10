@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import crypto from "crypto"
-import Session from "../model/session.model.js";
-import User from "../model/user.model.js";
+import Session from "../models/session.model.js";
+import User from "../models/user.model.js";
 
-const ACCESS_TOKEN_TTL = '30s'
+const ACCESS_TOKEN_TTL = '30m'
 const REFRESH_TOKEN_TTL = 2 * 24 * 60 * 60 * 1000 // 2 ngày
 
 export async function signUp(req, res) {

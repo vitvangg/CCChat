@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import auth from './middleware/auth.js'
 import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
+import friendRouter from './routes/friend.route.js'
 import cors from 'cors'
 
 dotenv.config()
@@ -23,6 +24,7 @@ app.use('/api/auth', authRouter)
 
 app.use(auth) 
 app.use('/api/user', userRouter)
+app.use('/api/friend', friendRouter)
 
 connectDB().then(() => {
   app.listen(process.env.PORT, () => {
