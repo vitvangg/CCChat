@@ -52,7 +52,32 @@ export const sendDirectMessage = async (req, res) => {
 // Gửi tin nhắn nhóm trong cuộc trò chuyện nhóm
 export const sendGroupMessage = async (req, res) => {
     try {
-        
+        const { content, conversationID } = req.body;
+        const senderID = req.user._id
+
+        // Kiểm tra nội dụng có thiếu không
+        if (!content) {
+            return res.status(400).json({ message: 'Content is required' });
+        }
+
+        // Kiem tra cuộc trò chuyện nhóm tồn tại
+        const conversation = await Conversation.findById(conversationID);
+        if (!conversation || conversation.type !== 'group') {
+            return res.status(404).json({ message: 'Group conversation not found' });
+        }
+
+        const message = await Message.create({
+            conversationID,
+            senderID,
+            content
+        });
+
+        // Cập nhật cuộc trò chuyện sau khi tạo tin nhắn
+        updateConversationAfterCreateMessage(conversation, message, senderID);
+        await conversation.save();
+
+        return res.status(201).json({ message });
+
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: 'Group message server error' });

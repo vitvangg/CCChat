@@ -7,6 +7,7 @@ import authRouter from './routes/auth.route.js'
 import userRouter from './routes/user.route.js'
 import friendRouter from './routes/friend.route.js'
 import messageRouter from './routes/message.route.js'
+import conversationRouter from './routes/conversation.route.js'
 import cors from 'cors'
 
 dotenv.config()
@@ -27,6 +28,7 @@ app.use(auth)
 app.use('/api/user', userRouter)
 app.use('/api/friend', friendRouter)
 app.use('/api/message', messageRouter)
+app.use('/api/conversation', conversationRouter)
 
 connectDB().then(() => {
   app.listen(process.env.PORT, () => {
