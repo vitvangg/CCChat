@@ -1,0 +1,554 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CCChat",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "summary": "SIGN-UP",
+        "responses": {},
+        "tags": [
+          "AUTH"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  },
+                  "displayName": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "email": "meo1@gmail.com",
+                "password": "5",
+                "displayName": "Mèo số 7"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "summary": "SIGN-IN",
+        "responses": {
+            "200": { "description": "Successful sign-in" },
+            "400": { "description": "Invalid input" },
+            "401": { "description": "Unauthorized" },
+            "500": { "description": "Server error" }
+        },
+        "tags": [
+          "AUTH"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "meo1@gmail.com",
+                "password": "1"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/signout": {
+      "post": {
+        "summary": "SIGN-OUT",
+        "responses": {},
+        "tags": [
+          "AUTH"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "summary": "GET-REFRESH",
+        "responses": {},
+        "tags": [
+          "AUTH"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "get": {
+        "summary": "GET-USER",
+        "responses": {},
+        "tags": [
+          "AUTH"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
+                }
+              },
+              "example": {
+                "email": "meo2@gmail.com",
+                "password": "2"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/test": {
+      "get": {
+        "summary": "TEST",
+        "responses": {},
+        "tags": [
+          "AUTH"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "utc-millisec"
+                  }
+                }
+              },
+              "example": {
+                "email": "meo2@gmail.com",
+                "password": "2"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friend/request": {
+      "post": {
+        "summary": "SEND-FRIEND-REQUEST",
+        "responses": {},
+        "tags": [
+          "FRIEND"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "to": "6953759a0dcfc8a6f0a31847",
+                "message": "Xin chào, tớ là mèo 3"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friend/request/6962379b3fbdfb15ea018bc8/accept": {
+      "post": {
+        "summary": "ACCEPT-FRIEND",
+        "responses": {},
+        "tags": [
+          "FRIEND"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friend/request/695fa4b3a87aea93ce69a3ab/decline": {
+      "post": {
+        "summary": "DECLINE-FRIEND",
+        "responses": {},
+        "tags": [
+          "FRIEND"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friend/list": {
+      "get": {
+        "summary": "LIST-FRIENDS",
+        "responses": {},
+        "tags": [
+          "FRIEND"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/friend/requests": {
+      "get": {
+        "summary": "LIST-FRIEND-REQUESTS",
+        "responses": {},
+        "tags": [
+          "FRIEND"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/message/direct": {
+      "post": {
+        "summary": "SEND-MESSAGE",
+        "responses": {},
+        "tags": [
+          "MESSAGE"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "receiverID": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "receiverID": "69537586bea464f30d1a7125",
+                "content": "ni hảo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/message/group": {
+      "post": {
+        "summary": "SEND-MESSAGE-GROUP",
+        "responses": {},
+        "tags": [
+          "MESSAGE"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  },
+                  "conversationID": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "content": "ni hảo",
+                "conversationID": "6965ba409b0c323418ab6492"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversation/": {
+      "post": {
+        "summary": "CREATE-CONVERSATION",
+        "responses": {},
+        "tags": [
+          "MESSAGE"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "memberIDs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "example": {
+                "type": "group",
+                "name": "Hội mèo phố",
+                "memberIDs": [
+                  "6953758dbea464f30d1a7128",
+                  "6953759a0dcfc8a6f0a31847",
+                  "69596aea4d0f4bc2ac1d3829"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "CREATE-CONVERSATION GROUP",
+        "responses": {},
+        "tags": [
+          "MESSAGE"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "memberIDs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "example": {
+                "type": "group",
+                "name": "Hội mèo phố",
+                "memberIDs": [
+                  "6953758dbea464f30d1a7128",
+                  "6953759a0dcfc8a6f0a31847",
+                  "69596aea4d0f4bc2ac1d3829"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/conversation/69625a82822e16d985696ecc/messages": {
+      "get": {
+        "summary": "GET-MESSAGES-GROUP",
+        "responses": {},
+        "tags": [
+          "MESSAGE"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "memberIDs": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "example": {
+                "type": "group",
+                "name": "Hội mèo phố",
+                "memberIDs": [
+                  "6953758dbea464f30d1a7128",
+                  "6953759a0dcfc8a6f0a31847",
+                  "69596aea4d0f4bc2ac1d3829"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+    "security": [
+        {
+        "BearerAuth": []
+        }
+    ]
+}

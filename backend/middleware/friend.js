@@ -32,16 +32,33 @@ export const checkFriendShip = async (req, res, next) => {
 
         // logic khi chat nhóm
         // kiểm tra tình bạn với từng thành viên
-        const friendChecks = memberIDs.map(async (memberID) => {
-            const [userA, userB] = pair(meID, memberID)
-            const friendship = await Friend.findOne({ userA, userB })
-            return friendship ? null : memberID
-        })
-        const results = await Promise.all(friendChecks);
-        const notFriends = results.filter(id => id !== null)
+        // Không tối ưu vì nhiều thành viên sẽ phải truy vấn nhiều lần
+        // const friendChecks = memberIDs.map(async (memberID) => {
+        //     const [userA, userB] = pair(meID, memberID)
+        //     const friendship = await Friend.findOne({ userA, userB })
+        //     return friendship ? null : memberID
+        // })
+        // const results = await Promise.all(friendChecks);
+        // const notFriends = results.filter(id => id !== null)
 
+        const friendCheck = Friend.find({
+            $or: memberIDs.map(id => {
+                const [userA, userB] = pair(meID, id)
+                return { userA, userB }
+            })
+        })
+
+        const friendIDs = friendCheck.map(f => {
+            return f.userA.toString() === meID
+                ? f.userB.toString()
+                : f.userA.toString()
+            })
+
+        const notFriends = memberIDs.filter(
+            id => !friendIDs.includes(id.toString())
+        )
         if (notFriends.length > 0) {
-            return res.status(403).json({ message: `You are not friends with users: ${notFriends.join(', ')}` })
+            return res.status(403).json({ message: 'You are not friends with some users', notFriends })
         }
 
         next()

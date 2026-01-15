@@ -134,7 +134,7 @@ export const getAllFriends = async (req, res) => {
       ]
     }).populate("userA", "_id displayName avatarURL").populate("userB", "_id displayName avatarURL")
 
-    if (!friendShip.length === 0) {
+    if (friendShip.length === 0) {
       return res.status(200).json({ friends: [] })
     }
 

@@ -9,6 +9,8 @@ import friendRouter from './routes/friend.route.js'
 import messageRouter from './routes/message.route.js'
 import conversationRouter from './routes/conversation.route.js'
 import cors from 'cors'
+import swaggerUI from 'swagger-ui-express'
+import fs from 'fs'
 
 dotenv.config()
 
@@ -21,6 +23,12 @@ app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true // Allow cookies to be sent
 }))
+
+// Swagger setup
+const swaggerDocument = JSON.parse(
+  fs.readFileSync('./swagger.json', 'utf-8')
+)
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 app.use('/api/auth', authRouter)
 
