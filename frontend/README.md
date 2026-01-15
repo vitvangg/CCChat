@@ -31,6 +31,11 @@ Follow the official installation guide: [Shadcn UI for Vite](https://ui.shadcn.c
 - **@hookform/resolvers** - Validation resolvers for react-hook-form, includes integrations with popular validation libraries like Zod
 - **sonner** - Beautiful, customizable toast notification library for React applications
 
+## Other UI
+```bash
+npx shadcn@latest add switch dialog badge textarea popover  
+```
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh

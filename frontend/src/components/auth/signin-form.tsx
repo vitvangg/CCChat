@@ -37,7 +37,7 @@ export function SignInForm({
     // Goi API để đăng nhập người dùng
     try {
       await signIn(email, password);
-      navigate("/chat");
+      navigate("/");
     } catch (error) {
       console.error("Signin error:", error);
     }
